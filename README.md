@@ -21,9 +21,9 @@ Git可以在特定动作执行时触发自定义钩子脚本, 包括服务端脚
   <build>
     <plugins>
       <plugin>
-        <groupId>com.itzhai.tools</groupId>
+        <groupId>fc-common</groupId>
         <artifactId>git-hook-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>0.0.1-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -96,9 +96,9 @@ Git可以在特定动作执行时触发自定义钩子脚本, 包括服务端脚
   <build>
     <plugins>
       <plugin>
-        <groupId>com.itzhai.tools</groupId>
+        <groupId>fc-common</groupId>
         <artifactId>git-hook-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
