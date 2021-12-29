@@ -6,10 +6,10 @@ COLOR_RED='\033[0;31m'
 COLOR_NONE='\033[0m'
 
 # 提交日志类型
-COMMIT_TYPE_ARRAR=("feat" "fix" "docs" "style" "refactor" "test" "chore")
+COMMIT_TYPE_ARRAR=("feat" "fix" "docs" "style" "refactor" "test" "chore" "perf" "revert")
 
 # 帮助文档
-refer_commit_guide='https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#'
+refer_commit_guide='https://git.hjgpscm.com/share/knowledge/-/blob/main/tech/git-repository.md'
 
 commit_msg=$(cat "$1" |grep -v "^[#,;]")
 commit_line_num=$(echo "$commit_msg" | wc -l) # grep -v "^$"

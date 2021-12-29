@@ -33,7 +33,7 @@ public class GitHookInstaller {
     /**
      * 本地项目自定义git hook脚本文件夹名称
      */
-    private static final String FILE_NAME_LOCAL_HOOKS = "ghooks";
+    private static final String FILE_NAME_LOCAL_HOOKS = ".githooks";
 
     /**
      * git hook名称

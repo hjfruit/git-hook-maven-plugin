@@ -6,7 +6,7 @@
 
 良好的Commit Message有利于代码审查，能更快速查找变更记录，并且可以直接生成Change log。
 
-Commit Message的写法规范：[AngularJS Git Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#)的格式。
+Commit Message的写法规范：[AngularJS Git Commit Message Conventions](https://git.hjgpscm.com/share/knowledge/-/blob/main/tech/git-repository.md)的格式。
 
 为了规范代码提交的说明，这里我们使用angular的规范写法：
 
