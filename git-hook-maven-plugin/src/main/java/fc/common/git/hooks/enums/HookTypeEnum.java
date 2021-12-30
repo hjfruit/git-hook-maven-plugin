@@ -1,4 +1,4 @@
-package com.itzhai.tools.enums;
+package fc.common.git.hooks.enums;
 
 /**
  * Git hook枚举

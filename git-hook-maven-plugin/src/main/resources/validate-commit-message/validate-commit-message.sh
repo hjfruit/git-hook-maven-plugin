@@ -33,7 +33,7 @@ checkBlank() {
 # Author: arthinking
 # ----------------------
 checkHeaderFormat() {
-  local header_regex='.*\(.*\): .*'
+  local header_regex='.*\: .*'
   local count=$(echo "${commit_msg_head}" | grep -Ec "$header_regex")
   if [ ${count} -eq 0 ]
   then

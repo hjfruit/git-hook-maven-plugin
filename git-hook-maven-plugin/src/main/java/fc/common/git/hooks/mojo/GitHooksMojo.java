@@ -1,7 +1,7 @@
-package com.itzhai.tools.mojo;
+package fc.common.git.hooks.mojo;
 
-import com.itzhai.tools.enums.HookTypeEnum;
-import com.itzhai.tools.installer.GitHookInstaller;
+import fc.common.git.hooks.enums.HookTypeEnum;
+import fc.common.git.hooks.installer.GitHookInstaller;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -23,6 +23,7 @@ public class GitHooksMojo extends AbstractMojo{
     private Map<String, String> ghooks;
 
 
+    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
         if(null == ghooks) {

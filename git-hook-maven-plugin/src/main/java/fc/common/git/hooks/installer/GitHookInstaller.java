@@ -1,4 +1,4 @@
-package com.itzhai.tools.installer;
+package fc.common.git.hooks.installer;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
