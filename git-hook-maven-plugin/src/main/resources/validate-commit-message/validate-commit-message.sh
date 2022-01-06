@@ -1,6 +1,6 @@
 #!/bin/bash
 # Just for commit-msg hook
-# hook.version@1.0.1
+# hook.version@1.0.4
 
 COLOR_RED='\033[0;31m'
 COLOR_NONE='\033[0m'
@@ -15,6 +15,9 @@ commit_msg=$(cat "$1" |grep -v "^[#,;]")
 commit_line_num=$(echo "$commit_msg" | wc -l) # grep -v "^$"
 commit_msg_head=$(echo "$commit_msg" | head -1)
 
+printOriginMsg() {
+  echo "your commit_msg: ${commit_msg}\n" >&2
+}
 # ----------------------
 # Description: 提交日志不能为空
 # Author: arthinking
@@ -37,7 +40,7 @@ checkHeaderFormat() {
   local count=$(echo "${commit_msg_head}" | grep -Ec "$header_regex")
   if [ ${count} -eq 0 ]
   then
-    echo -e "${COLOR_RED}\nCommit log error: First commit message line (commit header) does not follow format: type(scope): subject" >&2
+    echo -e "${COLOR_RED}\n提交内容header不符合规范： type: subject" >&2
     echo -e "${COLOR_NONE} - Refer commit guide: ${refer_commit_guide}\n" >&2
     exit 1
   fi
@@ -52,11 +55,11 @@ checkHeaderType() {
   OLD_IFS="$IFS"
   local type_str=$( IFS=$'|'; echo "${COMMIT_TYPE_ARRAR[*]}" )
   IFS=$OLD_IFS
-  local header_regex='('${type_str}')\(.*\): .*'
+  local header_regex='('${type_str}')\: .*'
   local count=$(echo "${commit_msg_head}" | grep -Ec "$header_regex")
   if [ ${count} -eq 0 ]
   then
-    echo -e "${COLOR_RED}\nCommit log error: Commit type illegal, expected: ${COMMIT_TYPE_ARRAR[@]}" >&2
+    echo -e "${COLOR_RED}\n提交内容header 类型当前仅支持: ${COMMIT_TYPE_ARRAR[@]}" >&2
     echo -e "${COLOR_NONE} - Refer commit guide: ${refer_commit_guide}\n" >&2
     exit 1
   fi
@@ -97,6 +100,7 @@ checkBody() {
   fi
 }
 
+printOriginMsg
 checkBlank
 checkHeaderFormat
 checkHeaderType

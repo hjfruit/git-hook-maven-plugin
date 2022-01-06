@@ -176,7 +176,7 @@ public class GitHookInstaller {
                 sourceString.append(new String(b, 0, n));
             }
             FileUtils.fileWrite(fileFullPath, sourceString.toString());
-            Runtime.getRuntime().exec("chmod +x " + fileFullPath);
+//            Runtime.getRuntime().exec("chmod +x " + fileFullPath);
         } catch (IOException e) {
             throw new MojoExecutionException("Error when writeFile", e);
         } finally {
