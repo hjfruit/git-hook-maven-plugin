@@ -1,6 +1,6 @@
 #!/bin/bash
 # Just for commit-msg hook
-# hook.version@1.0.4
+# hook.version@1.0.5
 
 COLOR_RED='\033[0;31m'
 COLOR_NONE='\033[0m'
@@ -99,10 +99,21 @@ checkBody() {
     fi
   fi
 }
+doCheck(){
+  if [[ ${commit_msg} = Merge* ]]
+  then
+    printOriginMsg
+    echo "merge message will not check"
+  else
+    printOriginMsg
+    checkBlank
+    checkHeaderFormat
+    checkHeaderType
+    checkSecondLine
+    checkBody
+  fi
 
-printOriginMsg
-checkBlank
-checkHeaderFormat
-checkHeaderType
-checkSecondLine
-checkBody
+}
+
+doCheck
+
