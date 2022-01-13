@@ -65,6 +65,7 @@ public class GitHookInstaller {
 
         // 获取git hook文件夹
         File gitHooksFolder = getGitHookFolder();
+        log.info(gitHooksFolder.getPath());
 
         // 判断时是否git项目
         checkIsGitRepo(gitHooksFolder);
@@ -189,8 +190,25 @@ public class GitHookInstaller {
         }
     }
 
-    private File getGitHookFolder() {
-       return new File(System.getProperty("user.dir") + File.separator + FILE_NAME_GIT + File.separator + FILE_NAME_HOOKS);
+    private File getGitHookFolder(){
+        String file = "";
+        try {
+            //使用git命令获取git根目录
+            Process exec = Runtime.getRuntime().exec("git rev-parse --show-toplevel");
+            InputStream inputStream = exec.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line = reader.readLine();
+            file = line.replace("/", "\\");
+
+            exec.waitFor();
+            inputStream.close();
+            reader.close();
+            exec.destroy();
+        }catch (Exception e) {
+            log.info("git directory fetch failed");
+        }
+
+        return new File(  file + File.separator + FILE_NAME_GIT + File.separator + FILE_NAME_HOOKS);
     }
 
     private String getGitHookFileVersion(InputStream inputStream) throws MojoExecutionException {
