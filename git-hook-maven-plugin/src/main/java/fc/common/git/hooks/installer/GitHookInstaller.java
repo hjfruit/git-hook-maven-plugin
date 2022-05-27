@@ -45,6 +45,8 @@ public class GitHookInstaller {
      */
     private String gitHookScriptPath;
 
+    private String path;
+
     /**
      *  maven plugin 日志输出器
      */
@@ -68,7 +70,10 @@ public class GitHookInstaller {
         log.info(gitHooksFolder.getPath());
 
         // 判断时是否git项目
-        checkIsGitRepo(gitHooksFolder);
+        if (!gitHooksFolder.exists()) {
+            log.error("This is not a git repository, initial git hooks fail...");
+            return;
+        }
 
         // 获取当前处理的git hook的完整路径
         File gitHookFile = new File(gitHooksFolder + File.separator + this.gitHookName);
@@ -109,7 +114,7 @@ public class GitHookInstaller {
     private InputStream getNewGitHookScriptInputStream() throws FileNotFoundException, MojoExecutionException {
 
         // 尝试从当前项目路径获取
-        File localGitHookScript = new File(System.getProperty("user.dir") + File.separator + FILE_NAME_LOCAL_HOOKS
+        File localGitHookScript = new File(path + File.separator + FILE_NAME_LOCAL_HOOKS
                 + File.separator + this.gitHookScriptPath);
         if(localGitHookScript.exists()) {
             log.info("Use local git hook file: " + gitHookScriptPath);
@@ -191,15 +196,17 @@ public class GitHookInstaller {
     }
 
     private File getGitHookFolder(){
-        String file = "";
         try {
             //使用git命令获取git根目录
             Process exec = Runtime.getRuntime().exec("git rev-parse --show-toplevel");
             InputStream inputStream = exec.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             String line = reader.readLine();
-            file = line.replace("/", "\\");
-
+            if (line.indexOf("/") > 0) {
+                path = line.replace("/", File.separator);
+            }else {
+                path = line.replace("\\", File.separator);
+            }
             exec.waitFor();
             inputStream.close();
             reader.close();
@@ -208,7 +215,7 @@ public class GitHookInstaller {
             log.info("git directory fetch failed");
         }
 
-        return new File(  file + File.separator + FILE_NAME_GIT + File.separator + FILE_NAME_HOOKS);
+        return new File(  path + File.separator + FILE_NAME_GIT + File.separator + FILE_NAME_HOOKS);
     }
 
     private String getGitHookFileVersion(InputStream inputStream) throws MojoExecutionException {
